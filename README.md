@@ -149,8 +149,4 @@ A sample input file that:
 - **Abaqus Access:**
   - I can no longer continue the experiment because I no longer have access to Abaqus. Future support and enhancements are not guaranteed.
 
----
 
-## Acknowledgements
-
-Many thanks to the open-source community for tools such as **mpi4py** and **NumPy**, which have made this experimental project possible.
