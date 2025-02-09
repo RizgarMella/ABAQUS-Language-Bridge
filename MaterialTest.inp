@@ -1,0 +1,48 @@
+*Heading
+** Single Element Test using UMAT with a Python “bridge” for elastic material response
+**
+*Part, name=PART-1
+*Node
+1, 0.0, 0.0, 0.0
+2, 1.0, 0.0, 0.0
+3, 1.0, 1.0, 0.0
+4, 0.0, 1.0, 0.0
+5, 0.0, 0.0, 1.0
+6, 1.0, 0.0, 1.0
+7, 1.0, 1.0, 1.0
+8, 0.0, 1.0, 1.0
+*Element, type=C3D8, elset=EALL
+1, 1, 2, 3, 4, 5, 6, 7, 8
+*End Part
+**
+*Assembly, name=ASSEMBLY
+*Instance, name=PART-1-1, part=PART-1
+*End Instance
+**
+*Material, name=ElasticMat
+*User Material, constants=2
+210000.0, 0.3
+**
+*Solid Section, elset=EALL, material=ElasticMat
+1.0,
+**
+*Boundary
+! Fix one face of the brick (for example, nodes on the face containing node 1)
+PART-1-1.1, 1, 1, 0.0
+PART-1-1.1, 2, 2, 0.0
+PART-1-1.1, 3, 3, 0.0
+**
+*Step, name=Step-1, nlgeom=NO
+*Static
+**
+*Boundary
+! (Optionally, further boundary conditions can be applied.)
+PART-1-1.4, 1, 1, 0.0
+PART-1-1.4, 2, 2, 0.0
+PART-1-1.4, 3, 3, 0.0
+**
+*Cload
+! Apply a load at node 7 in the Z-direction
+PART-1-1.7, 3, -1000.0
+**
+*End Step
